@@ -51,7 +51,7 @@ make build
 ### Запуск серии экспериментов
 
 ```bash
-./obs-bench run-batch --file experiments.yaml
+./obs-bench run-batch --file experiments-final.yaml
 ```
 
 При ошибке отдельного эксперимента batch-запуск продолжает выполнение остальных прогонов, а по завершении выводит итоговый статус.

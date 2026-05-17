@@ -1,0 +1,133 @@
+# ---------------------------------------------------------------------------
+# Финальная серия экспериментов ObsBench (ВКР)
+# ---------------------------------------------------------------------------
+#
+# Все прогоны выполняются с retention_days: 7  (базовый горизонт хранения).
+#
+# load_value для метрических инструментов (prometheus, victoria_metrics)
+# означает число активных временных рядов.
+#
+# load_value для логовых инструментов (loki, opensearch)
+# означает число логовых строк в секунду.
+#
+# Прогрев 15 минут исключается из окна измерений (см. docs/methodology.md).
+# ---------------------------------------------------------------------------
+
+experiments:
+
+  # =========================================================================
+  # Базовые прогоны — метрики
+  # Длительность: 3 часа (основное окно измерений: 2ч 45м)
+  # =========================================================================
+
+  - instrument: prometheus
+    load_value: 10000
+    retention_days: 7
+    duration: 3h
+
+  - instrument: prometheus
+    load_value: 50000
+    retention_days: 7
+    duration: 3h
+
+  - instrument: prometheus
+    load_value: 100000
+    retention_days: 7
+    duration: 3h
+
+  - instrument: victoria_metrics
+    load_value: 10000
+    retention_days: 7
+    duration: 3h
+
+  - instrument: victoria_metrics
+    load_value: 50000
+    retention_days: 7
+    duration: 3h
+
+  - instrument: victoria_metrics
+    load_value: 100000
+    retention_days: 7
+    duration: 3h
+
+  - instrument: prometheus
+    load_value: 200000
+    retention_days: 7
+    duration: 3h
+
+  - instrument: victoria_metrics
+    load_value: 200000
+    retention_days: 7
+    duration: 3h
+
+  # =========================================================================
+  # Базовые прогоны — логи
+  # Длительность: 1 час 30 минут (основное окно измерений: 1ч 15м)
+  # =========================================================================
+
+  - instrument: loki
+    load_value: 1000
+    retention_days: 7
+    duration: 1h30m
+
+  - instrument: loki
+    load_value: 2500
+    retention_days: 7
+    duration: 1h30m
+
+  - instrument: loki
+    load_value: 5000
+    retention_days: 7
+    duration: 1h30m
+
+  - instrument: opensearch
+    load_value: 1000
+    retention_days: 7
+    duration: 1h30m
+
+  - instrument: opensearch
+    load_value: 2500
+    retention_days: 7
+    duration: 1h30m
+
+  - instrument: opensearch
+    load_value: 5000
+    retention_days: 7
+    duration: 1h30m
+
+  - instrument: loki
+    load_value: 10000
+    retention_days: 7
+    duration: 3h
+
+  - instrument: opensearch
+    load_value: 10000
+    retention_days: 7
+    duration: 3h
+
+  # =========================================================================
+  # Калибровочные прогоны — 24 часа
+  # Используются для оценки роста дискового потребления во времени
+  # (расчёт коэффициента α в модели масштабирования диска по retention).
+  # Основное окно измерений: 23ч 45м.
+  # =========================================================================
+
+  - instrument: prometheus
+    load_value: 50000
+    retention_days: 7
+    duration: 24h
+
+  - instrument: victoria_metrics
+    load_value: 50000
+    retention_days: 7
+    duration: 24h
+
+  - instrument: loki
+    load_value: 1000
+    retention_days: 7
+    duration: 24h
+
+  - instrument: opensearch
+    load_value: 1000
+    retention_days: 7
+    duration: 24h

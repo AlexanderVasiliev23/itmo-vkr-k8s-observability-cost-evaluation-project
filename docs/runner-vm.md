@@ -39,7 +39,7 @@ ssh ubuntu@<RUNNER_IP>
 
 tmux new -s bench
 
-KUBECONFIG=~/.kube/k1.yaml ./obs-bench run-batch --file experiments.yaml
+KUBECONFIG=~/.kube/k1.yaml ./obs-bench run-batch --file experiments-final.yaml
 ```
 
 Отсоединиться от tmux-сессии:

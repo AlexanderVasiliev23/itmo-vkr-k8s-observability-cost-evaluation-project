@@ -3,3 +3,5 @@
 infra/.terraform/
 infra/backend.hcl
 infra/terraform.tfvars
+
+obs-bench/.env
