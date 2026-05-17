@@ -1,0 +1,14 @@
+yc_token   = ""
+cloud_id   = ""
+folder_id  = ""
+
+k8s_version    = "1.32"
+sa_name        = "obs-bench-sa"
+
+# Node resources — достаточно для прогонов Loki/OpenSearch/Prometheus
+node_cores     = 8
+node_memory_gb = 16
+node_disk_gb   = 100
+node_count     = 1
+
+runner_ssh_public_key = "ssh-rsa AAAA... user@example"

@@ -1,0 +1,3 @@
+bucket     = "obs-bench-tfstate"   # имя бакета в Yandex Object Storage
+access_key = "YCAJe..."            # yc iam access-key create --service-account-name obs-bench-sa
+secret_key = "YCN..."

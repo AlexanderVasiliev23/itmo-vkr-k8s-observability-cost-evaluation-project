@@ -1,1 +1,5 @@
 .idea
+
+infra/.terraform/
+infra/backend.hcl
+infra/terraform.tfvars
