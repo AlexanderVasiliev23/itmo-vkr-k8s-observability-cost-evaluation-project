@@ -4,6 +4,7 @@ go 1.25.0
 
 require (
 	github.com/docker/docker v28.5.2+incompatible
+	github.com/ilyakaznacheev/cleanenv v1.5.0
 	github.com/moby/go-archive v0.2.0
 	github.com/spf13/cobra v1.10.2
 	github.com/uptrace/bun v1.2.18
@@ -68,7 +69,6 @@ require (
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/huandu/xstrings v1.5.0 // indirect
-	github.com/ilyakaznacheev/cleanenv v1.5.0 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jmoiron/sqlx v1.4.0 // indirect
