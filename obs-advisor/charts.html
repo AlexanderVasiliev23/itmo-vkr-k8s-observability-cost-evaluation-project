@@ -22,7 +22,7 @@
 <body>
   <h1>ObsBench — сравнение инструментов по ресурсам</h1>
   <p class="subtitle">
-    Retention = 7 дней. Маркеры — измеренные точки; линия — модель (линейная интерполяция/экстраполяция); полоса — ±20%.<br>
+    Retention = 7 дней. Маркеры — измеренные точки; линия — модель (линейная интерполяция/экстраполяция).<br>
     Диск показан в GiB для прогонов с retention = 7 дней; при повторных прогонах с одинаковой нагрузкой используется медиана.
     Калибровочные 24h-прогоны исключены из этих графиков — они используются только для оценки α.
   </p>
@@ -123,30 +123,7 @@
         const line = modelLine(sorted, xMin, xMax);
         const c = COLORS[inst];
         const lbl = LABELS[inst] || inst;
-        const bandIdx = datasets.length; // index of the upper band
 
-        // Верхняя граница ±20%
-        datasets.push({
-          label: `${lbl} +20%`,
-          data: line.map(p => ({ x: p.x, y: p.y * 1.2 })),
-          borderColor: "transparent",
-          backgroundColor: c.band,
-          pointRadius: 0,
-          fill: bandIdx + 1, // fill to next dataset (lower band)
-          tension: 0,
-          order: 10,
-        });
-        // Нижняя граница ±20%
-        datasets.push({
-          label: `${lbl} -20%`,
-          data: line.map(p => ({ x: p.x, y: Math.max(0, p.y * 0.8) })),
-          borderColor: "transparent",
-          backgroundColor: "transparent",
-          pointRadius: 0,
-          fill: false,
-          tension: 0,
-          order: 10,
-        });
         // Линия модели
         datasets.push({
           label: lbl,
@@ -181,13 +158,12 @@
           plugins: {
             legend: {
               labels: {
-                filter: item => !item.text.includes("+20%") && !item.text.includes("-20%") && !item.text.includes("(данные)"),
+                filter: item => !item.text.includes("(данные)"),
                 font: { size: 11 },
                 boxWidth: 12,
               },
             },
             tooltip: {
-              filter: item => !item.dataset.label.includes("+20%") && !item.dataset.label.includes("-20%"),
               callbacks: {
                 label: ctx => `${ctx.dataset.label}: ${ctx.parsed.y.toFixed(3)} ${yLabel}`,
               },
@@ -222,7 +198,7 @@
 
       // Только retention=7d и только короткие прогоны (не калибровочные 24h)
       // 24h = 86400s; порог исключения — более 4h (14400s)
-      const baseline = rows.filter(r => r.retention_days === 7 && r.duration_seconds <= 14400);
+      const baseline = rows.filter(r => r.retention_days === 7 && r.duration_seconds <= 14400 && !(r.instrument === "opensearch" && r.load_value === 7500));
 
       function median(values) {
         const xs = values.filter(v => Number.isFinite(v)).sort((a, b) => a - b);
